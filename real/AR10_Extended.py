@@ -25,7 +25,7 @@ index, base |   2   |    1  |    18
 index, curl |   3   |    1  |    19
 """
 
-from AR10 import AR10
+from real.AR10 import AR10
 import time
 
 class hand:
