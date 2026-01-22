@@ -13,6 +13,8 @@ class SawyerArm:
         self.limb = intera_interface.Limb(limb_name)
 
     def joint_angles(self) -> Dict[str, float]:
+        for joint in self.limb.joint_angles():
+            print(joint)
         return self.limb.joint_angles()
 
     def move_to_neutral(self, timeout: Optional[float] = None):
