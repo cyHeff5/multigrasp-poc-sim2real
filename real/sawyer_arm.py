@@ -29,3 +29,6 @@ class SawyerArm:
         else:
             self.limb.move_to_joint_positions(angles, timeout=timeout)
 
+    def set_joint_position_speed(self, speed: float):
+        self.limb.set_joint_position_speed(speed)
+

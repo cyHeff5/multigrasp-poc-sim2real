@@ -16,8 +16,11 @@ def _lift_arm(
     joint_name: str,
     delta: float,
     timeout: Optional[float],
+    speed: Optional[float],
 ):
     arm = SawyerArm(limb_name=limb_name)
+    if speed is not None:
+        arm.set_joint_position_speed(speed)
     angles = arm.joint_angles()
     if joint_name not in angles:
         known = ", ".join(sorted(angles.keys()))
@@ -38,6 +41,12 @@ def main():
     )
     parser.add_argument("--lift-delta", type=float, default=0.1, help="Joint delta (radians) for the lift.")
     parser.add_argument("--lift-timeout", type=float, default=2.0, help="Timeout for Sawyer motion.")
+    parser.add_argument(
+        "--lift-speed",
+        type=float,
+        default=0.2,
+        help="Sawyer joint position speed (0.0-1.0). Lower is smoother.",
+    )
     args = parser.parse_args()
 
     in_path = Path(args.input)
@@ -52,7 +61,7 @@ def main():
     if args.sleep_hand > 0:
         time.sleep(args.sleep_hand)
 
-    _lift_arm(args.limb, args.lift_joint, args.lift_delta, args.lift_timeout)
+    _lift_arm(args.limb, args.lift_joint, args.lift_delta, args.lift_timeout, args.lift_speed)
 
 
 if __name__ == "__main__":
