@@ -113,3 +113,7 @@ class hand:
 
     def close(self):
         self.AR10.close()
+
+    def open(self):
+        open_targets = [self.AR10.target_max] * len(self.joint_array)
+        self.motion_manager.multi_move(open_targets)
